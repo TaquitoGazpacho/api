@@ -15,7 +15,8 @@ class PeticionController extends Controller
      */
     public function index()
     {
-        //
+        $peticion = Peticion::all();
+        return response()->json($peticion);
     }
 
     /**
@@ -25,7 +26,10 @@ class PeticionController extends Controller
      */
     public function create()
     {
-        //
+        $peticion = new Peticion();
+        $peticion->setCodigoRepartidor($this->generarCodigo());
+        $peticion->setCodigoUsuario($this->generarCodigo());
+        return $peticion;
     }
 
     /**
@@ -39,15 +43,16 @@ class PeticionController extends Controller
         if($request->header("peticion")== "codigoRepartidor"){
 
             try{
-                $peticion = new Peticion();
-                $peticion->setCodigoRepartidor($this->generarCodigo());
-                $peticion->setCodigoUsuario($this->generarCodigo());
-
+                $peticion = $this->create();
                 $peticion->save();
                 return response()->json(['status'=>true,'codigoRepartidor'=>$peticion->codigoRepartidor,'idPeticion'=>$peticion->id],200);
             }catch (\Exception $e){
                 Log::critical("No se hacer la peticion: {$e->getMessage()}");
             }
+        }elseif (($request->header("idPeticion"))){
+
+            $codigoUsuario = ($this->show($request->header("idPeticion")))->codigoUsuario;
+            return response()->json(['status' => true, 'codigoUsuario' => $codigoUsuario],200);
         }
     }
 
@@ -60,7 +65,7 @@ class PeticionController extends Controller
     public function show($id)
     {
        $peticion= Peticion::find($id);
-       return response()->json($peticion);
+       return $peticion;
     }
 
     /**
