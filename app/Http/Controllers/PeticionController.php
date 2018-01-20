@@ -44,7 +44,7 @@ class PeticionController extends Controller
                 $peticion->setCodigoUsuario($this->generarCodigo());
 
                 $peticion->save();
-                return response()->json(['status'=>true,'codigoRepartidor'=>$peticion->codigoRepartidor],200);
+                return response()->json(['status'=>true,'codigoRepartidor'=>$peticion->codigoRepartidor,'idPeticion'=>$peticion->id],200);
             }catch (\Exception $e){
                 Log::critical("No se hacer la peticion: {$e->getMessage()}");
             }

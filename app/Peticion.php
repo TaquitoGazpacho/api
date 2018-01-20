@@ -9,7 +9,7 @@ class Peticion extends Model
 
     protected $table="peticiones";
     protected $fillable=['codigoRepartidor','codigoUsuario'];
-    protected $hidden=['id','created_at','updated_at'];
+    protected $hidden=['created_at','updated_at'];
 
     public function __construct(){
         $this->codigoUsuario="";
