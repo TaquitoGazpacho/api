@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Peticion;
+use App\Reparto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -13,10 +14,12 @@ class PeticionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $peticion = Peticion::all();
-        return response()->json($peticion);
+        $idOficina= $request['idOf'];
+        $idTaquilla= $request['idTaq'];
+        $codigo= $request['codigo'];
+        return $this->comprobarCodigo($idOficina,$idTaquilla,$codigo);
     }
 
     /**
@@ -65,7 +68,7 @@ class PeticionController extends Controller
     public function show($id)
     {
        $peticion= Peticion::find($id);
-       return $peticion;
+       return view('welcome')->with('pet',$peticion);
     }
 
     /**
@@ -101,11 +104,24 @@ class PeticionController extends Controller
     {
         //
     }
-    public function generarCodigo(){
-        $codigo = '';
-        $caracteres = '1234567890';
-        $max = strlen($caracteres)-1;
-        for($i=0;$i < 6;$i++) $codigo .= $caracteres{mt_rand(0,$max)};
-        return $codigo;
+
+    protected function comprobarCodigo($oficina_id, $taquilla_id, $codigo)
+    {
+        $reparto= Reparto::where([
+            ['oficina_id', '=', $oficina_id],
+            ['taquilla_id', '=',$taquilla_id],
+            ['clave_repartidor', '=', $codigo]
+        ])->orWhere([
+            ['oficina_id', '=', $oficina_id],
+            ['taquilla_id', '=',$taquilla_id],
+            ['clave_usuario', '=', $codigo]
+        ])->first();
+
+        if (isset($reparto['id'])){
+            return "true";
+        } else{
+            return "false";
+        }
+
     }
 }
