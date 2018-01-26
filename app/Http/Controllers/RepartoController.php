@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class RepartoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('apiAuth');
+    }
+
     /**
      * Display a listing of the resource.
      *
