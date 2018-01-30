@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reparto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RepartoController extends Controller
 {
