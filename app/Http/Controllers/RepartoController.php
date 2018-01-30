@@ -54,11 +54,11 @@ class RepartoController extends Controller
         if ($reparto->estado == 'Enviado'){
             DB::table('repartos')
                 ->where('id', $reparto->id)
-                ->update(['estado', 'Depositado']);
+                ->update(['estado' => 'Depositado']);
         }else if ($reparto->estado == 'Depositado'){
             DB::table('repartos')
                 ->where('id', $reparto->id)
-                ->update(['estado', 'Recogido']);
+                ->update(['estado' => 'Recogido']);
         }
     }
 
