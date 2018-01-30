@@ -29,7 +29,7 @@ class RepartoController extends Controller
 
     protected function comprobarCodigo($oficina_id, $taquilla_id, $codigo)
     {
-        if ($codigo="0000" && $oficina_id=1 && $taquilla_id=1){
+        if ($codigo=="0000" && $oficina_id==1 && $taquilla_id==1){
             return "true";
         }
         $reparto= Reparto::where([
