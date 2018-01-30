@@ -56,9 +56,14 @@ class RepartoController extends Controller
                 ->where('id', $reparto->id)
                 ->update(['estado' => 'Depositado']);
         }else if ($reparto->estado == 'Depositado'){
+            //actualizar estado del reparto
             DB::table('repartos')
                 ->where('id', $reparto->id)
                 ->update(['estado' => 'Recogido']);
+            //actualizar estado de la taquilla (libre/ocupada)
+            DB::table('taquillas')
+                ->where('id', $reparto->taquilla_id)
+                ->update(['ocupada' => false]);
         }
     }
 
