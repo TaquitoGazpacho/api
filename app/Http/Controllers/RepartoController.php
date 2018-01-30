@@ -41,6 +41,7 @@ class RepartoController extends Controller
         ])->first();
 
         if (isset($reparto['id'])){
+            $this->cambiarEstado($reparto);
             return "true";
         } else{
             return "false";
@@ -48,6 +49,17 @@ class RepartoController extends Controller
 
     }
 
+    protected function cambiarEstado($reparto){
+        if ($reparto->estado == 'Enviado'){
+            DB::table('repartos')
+                ->where('id', $reparto->id)
+                ->update(['Estado', 'Depositado']);
+        }else if ($reparto->estado == 'Depositado'){
+            DB::table('repartos')
+                ->where('id', $reparto->id)
+                ->update(['Estado', 'Recogido']);
+        }
+    }
 
 
     /**
