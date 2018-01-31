@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reparto;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -57,16 +58,25 @@ class RepartoController extends Controller
         if ($reparto->estado == 'Enviado'){
             DB::table('repartos')
                 ->where('id', $reparto->id)
-                ->update(['estado' => 'Depositado']);
+                ->update([
+                    'estado' => 'Depositado',
+                    'updated_at' => Carbon::Now()
+                    ]);
         }else if ($reparto->estado == 'Depositado'){
             //actualizar estado del reparto
             DB::table('repartos')
                 ->where('id', $reparto->id)
-                ->update(['estado' => 'Recogido']);
+                ->update([
+                    'estado' => 'Recogido',
+                    'updated_at' => Carbon::Now()
+                ]);
             //actualizar estado de la taquilla (libre/ocupada)
             DB::table('taquillas')
                 ->where('id', $reparto->taquilla_id)
-                ->update(['ocupada' => false]);
+                ->update([
+                    'ocupada' => false,
+                    'updated_at' => Carbon::Now()
+                ]);
         }
     }
 
