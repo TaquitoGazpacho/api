@@ -29,16 +29,16 @@ class User extends Authenticatable
 
     public function reparto()
     {
-        return $this->hasMany('App\Models\Reparto');
+        return $this->hasMany('App\Reparto');
     }
 
     public function suscripcion()
     {
-        return $this->belongsTo('App\Models\Suscripcion');
+        return $this->belongsTo('App\Suscripcion');
     }
     public function oficina()
     {
-        return $this->belongsTo('App\Models\Oficina');
+        return $this->belongsTo('App\Oficina');
     }
     public function changeImage($image){
         User::where('id', $this->id)
