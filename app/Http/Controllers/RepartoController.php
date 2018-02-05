@@ -6,6 +6,8 @@ use App\Reparto;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PedidoDepositado;
 
 class RepartoController extends Controller
 {
@@ -77,6 +79,12 @@ class RepartoController extends Controller
                     'ocupada' => false,
                     'updated_at' => Carbon::Now()
                 ]);
+            //enviar mail
+            $nombre=$reparto->usuario->name;
+            $email=$reparto->usuario->email;
+            $oficina=$reparto->oficina->calle." ".$reparto->oficina->num_calle;
+            $taquilla=$reparto->taquilla->numero_taquilla;
+            Mail::to($email)->send(new PedidoDepositado($nombre, $reparto->clave_usuario, $oficina, $taquilla));
         }
     }
 
