@@ -80,7 +80,7 @@ class RepartoController extends Controller
                     'updated_at' => Carbon::Now()
                 ]);
             //enviar mail
-            $nombre= "Maria";//$reparto->usuario->name;
+            $nombre= $reparto->usuario->name;
             $email=$reparto->usuario->email;
             $oficina=$reparto->oficina->calle." ".$reparto->oficina->num_calle;
             $taquilla=$reparto->taquilla->numero_taquilla;
