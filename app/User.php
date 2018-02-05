@@ -1,9 +1,9 @@
 <?php
-
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
 class User extends Authenticatable
 {
@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'surname', 'phone', 'sex', 'email', 'password', 'image', 'email_token', 'suscripcion_id', 'oficina_id', 'verified',
     ];
 
     /**
@@ -26,4 +26,32 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function reparto()
+    {
+        return $this->hasMany('App\Models\Reparto');
+    }
+
+    public function suscripcion()
+    {
+        return $this->belongsTo('App\Models\Suscripcion');
+    }
+    public function oficina()
+    {
+        return $this->belongsTo('App\Models\Oficina');
+    }
+    public function changeImage($image){
+        User::where('id', $this->id)
+            ->update(['image' => 'img/userImg/'.$image]);
+    }
+    public function cambiarOficina($office_id){
+        User::where('id', $this->id)
+            ->update(['oficina_id'=>$office_id]);
+    }
+    public function isVerified(){
+        return $this->verified;
+    }
+    public static function getUsuarios(){
+        return User::get();
+    }
 }
