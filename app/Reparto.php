@@ -21,21 +21,21 @@ class Reparto extends Model
 
     public function usuario()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
 
     public function empresa()
     {
-        return $this->belongsTo('App\Models\Empresa_reparto');
+        return $this->belongsTo('App\Empresa_reparto');
     }
 
     public function oficina()
     {
-        return $this->belongsTo('App\Models\Oficina');
+        return $this->belongsTo('App\Oficina');
     }
 
     public function taquilla()
     {
-        return $this->belongsTo('App\Models\Taquilla');
+        return $this->belongsTo('App\Taquilla');
     }
 }
