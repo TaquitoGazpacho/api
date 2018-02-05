@@ -5,5 +5,6 @@
 <p style="color: black">Puedes pasar a recogerlo a cualquier hora en tu oficina seleccionada: {{ $oficina }}</p>
 <p style="color: black">Podrás encontrar tu pedido en la taquilla {{ $taquilla }}. Tu clave es {{ $clave }}</p>
 <a style="color: white;line-height: 50px;width: 300px; height: 50px; background: #F96F00; border: 1px solid #bc5600; text-decoration: none;display: inline-block;" href="http://electricsheep.es/taquitoGazpacho/perfil/pedidos">Tus pedidos</a>
+<p></p>
 </body>
 <br/>
